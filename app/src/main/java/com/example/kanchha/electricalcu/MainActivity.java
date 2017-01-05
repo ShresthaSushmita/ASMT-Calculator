@@ -18,7 +18,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
+    TextView textView,result;
+    TextView text;
     EditText editText,editText2;
     RadioGroup radio;
     RadioButton rgb;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         textView=(TextView)findViewById(R.id.textView);
+        result=(TextView)findViewById(R.id.textview2);
+        text=(TextView)findViewById(R.id.text);
         editText=(EditText)findViewById(R.id.editText);
         editText2=(EditText)findViewById(R.id.editText2);
         radio=(RadioGroup)findViewById(R.id.radio);
@@ -68,20 +71,85 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a=editText.getText().toString();
-                String b=editText2.getText().toString();
+                String a = editText.getText().toString();
+                String b = editText2.getText().toString();
 
-                if (a.isEmpty()|| b.isEmpty())
-                {
+                if (a.isEmpty() || b.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Empty Content", Toast.LENGTH_SHORT).show();
                 }
 
-                if(ampere == 0){
+                if (ampere == 0) {
                     Toast.makeText(getApplicationContext(), "Plese select your ampere", Toast.LENGTH_SHORT).show();
+                } else {
+                    one = Integer.parseInt(a);
+                    two = Integer.parseInt(b);
+                    diff = two - one;
+                    if (ampere == 5) {
+                        if (diff <= 20) {
+                            totalAmount = 80;
+                            result.append("Rs" + totalAmount);
+                        }
+                        else if ((diff > 20) && (diff <= 31)) {
+                            totalAmount = (float) ((20 * 4) + (diff - 20) * 7.30);
+                            result.setText("Rs" + totalAmount);
+                        } else if ((diff > 31) && (diff <= 50)) {
+                            totalAmount = (float) ((diff) * 7.30);
+                            result.setText("Rs" + totalAmount);
+                        } else if ((diff > 50) && (diff <= 150)) {
+                            totalAmount = (float) ((50 * 7.30) + (diff - 50) * 8.60);
+                            result.setText("Rs" + totalAmount);
+                        } else if ((diff > 150) && (diff <= 250)) {
+                            totalAmount = (float) ((150 * 8.60) + (diff - 150) * 9.50);
+                            result.setText("Rs" + totalAmount);
+                        } else {
+                            totalAmount = (float) ((250 * 9.50) + (diff - 250) * 11);
+                            result.setText("Rs" + totalAmount);
+                        }
+                    }
+                  else if(ampere ==15){
+                        if (diff <=50){
+                            totalAmount =356;
+                            result.setText("Rs" + totalAmount);
+                        }
+                        else if ((diff > 50) && (diff <= 150)) {
+                            totalAmount = (float) ((50 * 7.30) + (diff - 50) * 8.60);
+                            result.setText("Rs" + totalAmount);
+                        } else if ((diff > 150) && (diff <= 250)) {
+                            totalAmount = (float) ((150 * 8.60) + (diff - 150) * 9.50);
+                            result.setText("Rs" + totalAmount);
+                        } else {
+                            totalAmount = (float) ((250 * 9.50) + (diff - 250) * 11);
+                            result.setText("Rs" + totalAmount);
+                        }
+                    }
+
+                    else if(ampere == 30){
+                    if (diff <=100){
+                        totalAmount =795;
+                        result.setText("Rs" + totalAmount);
+                    } else if ((diff > 150) && (diff <= 250)) {
+                        totalAmount = (float) ((150 * 8.60) + (diff - 150) * 9.50);
+                        result.setText("Rs" + totalAmount);
+                    } else {
+                        totalAmount = (float) ((250 * 9.50) + (diff - 250) * 11);
+                        result.setText("Rs" + totalAmount);
+                    }
                 }
-
+                else {
+                      if(diff <= 200){
+                          totalAmount = 1765;
+                          result.setText("Rs" + totalAmount);
+                      }
+                      else if ((diff > 150) && (diff <= 250)) {
+                          totalAmount = (float) ((150 * 8.60) + (diff - 150) * 9.50);
+                          result.setText("Rs" + totalAmount);
+                      } else {
+                          totalAmount = (float) ((250 * 9.50) + (diff - 250) * 11);
+                          result.setText("Rs" + totalAmount);
+                      }
+                    }
+                }
             }
-
         });
     }
 
